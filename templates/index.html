@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVE Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .btn-container {
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+        }
+        hr {
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dettagli dei primi 10 CVE</h1>
+
+    <!-- Pulsanti per Login, Registrazione e Aggiunta CVE -->
+    <div class="btn-container">
+        <a href="/login" class="btn">Login</a>
+        <a href="/register" class="btn">Registrazione</a>
+        <a href="/add_cve" class="btn">Aggiungi CVE</a>
+    </div>
+
+    <div>
+        <h1>Welcome to the CVE Tracker</h1>
+        <button onclick="location.href='/login'">Login</button>
+        <button onclick="location.href='/register'">Register</button>
+        <button onclick="location.href='/add_cve'">Add CVE</button>
+    </div>
+
+    <!-- Elenco dei CVE -->
+    {% if cve_data %}
+        <ul>
+            {% for cve in cve_data %}
+                <li>
+                    <strong>CVE ID:</strong> {{ cve.id }} <br>
+                    <strong>Published:</strong> {{ cve.published }} <br>
+                    <strong>Source Identifier:</strong> {{ cve.sourceIdentifier }} <br>
+                    <strong>Description:</strong> {{ cve.description }}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nessun dato disponibile.</p>
+    {% endif %}
+</body>
+</html>
+
+
+
+

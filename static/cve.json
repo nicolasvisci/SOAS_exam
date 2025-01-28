@@ -1,0 +1,703 @@
+{
+    "resultsPerPage": 10,
+    "startIndex": 0,
+    "totalResults": 990,
+    "format": "NVD_CVE",
+    "version": "2.0",
+    "timestamp": "2025-01-09T16:05:59.420",
+    "vulnerabilities": [
+        {
+            "cve": {
+                "id": "CVE-2024-11846",
+                "sourceIdentifier": "contact@wpscan.com",
+                "published": "2025-01-01T06:15:23.220",
+                "lastModified": "2025-01-02T18:15:15.860",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "The  does not sanitise and escape a parameter before outputting it back in the page, leading to a Reflected Cross-Site Scripting which could be used against high privilege users such as admin"
+                    },
+                    {
+                        "lang": "es",
+                        "value": "No se desinfecta ni se escapa un parámetro antes de volver a mostrarlo en la página, lo que genera Cross-Site Scripting reflejado que podría usarse contra usuarios con privilegios elevados, como el administrador."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV31": [
+                        {
+                            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                                "baseScore": 6.1,
+                                "baseSeverity": "MEDIUM",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "LOW",
+                                "privilegesRequired": "NONE",
+                                "userInteraction": "REQUIRED",
+                                "scope": "CHANGED",
+                                "confidentialityImpact": "LOW",
+                                "integrityImpact": "LOW",
+                                "availabilityImpact": "NONE"
+                            },
+                            "exploitabilityScore": 2.8,
+                            "impactScore": 2.7
+                        }
+                    ]
+                },
+                "references": [
+                    {
+                        "url": "https://wpscan.com/vulnerability/eedaf2d8-171c-4785-99cc-ab33113308d1/",
+                        "source": "contact@wpscan.com"
+                    }
+                ]
+            }
+        },
+        {
+            "cve": {
+                "id": "CVE-2025-0168",
+                "sourceIdentifier": "cna@vuldb.com",
+                "published": "2025-01-01T14:15:23.590",
+                "lastModified": "2025-01-01T14:15:23.590",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "A vulnerability classified as critical has been found in code-projects Job Recruitment 1.0. This affects an unknown part of the file /_parse/_feedback_system.php. The manipulation of the argument person leads to sql injection. It is possible to initiate the attack remotely. The exploit has been disclosed to the public and may be used."
+                    },
+                    {
+                        "lang": "es",
+                        "value": "Se ha encontrado una vulnerabilidad clasificada como crítica en code-projects Job Recruitment 1.0. Afecta a una parte desconocida del archivo /_parse/_feedback_system.php. La manipulación del argumento person conduce a la inyección SQL. Es posible iniciar el ataque de forma remota. La vulnerabilidad se ha revelado al público y puede utilizarse."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV40": [
+                        {
+                            "source": "cna@vuldb.com",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "4.0",
+                                "vectorString": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+                                "baseScore": 5.3,
+                                "baseSeverity": "MEDIUM",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "LOW",
+                                "attackRequirements": "NONE",
+                                "privilegesRequired": "LOW",
+                                "userInteraction": "NONE",
+                                "vulnerableSystemConfidentiality": "LOW",
+                                "vulnerableSystemIntegrity": "LOW",
+                                "vulnerableSystemAvailability": "LOW",
+                                "subsequentSystemConfidentiality": "NONE",
+                                "subsequentSystemIntegrity": "NONE",
+                                "subsequentSystemAvailability": "NONE",
+                                "exploitMaturity": "NOT_DEFINED",
+                                "confidentialityRequirements": "NOT_DEFINED",
+                                "integrityRequirements": "NOT_DEFINED",
+                                "availabilityRequirements": "NOT_DEFINED",
+                                "modifiedAttackVector": "NOT_DEFINED",
+                                "modifiedAttackComplexity": "NOT_DEFINED",
+                                "modifiedAttackRequirements": "NOT_DEFINED",
+                                "modifiedPrivilegesRequired": "NOT_DEFINED",
+                                "modifiedUserInteraction": "NOT_DEFINED",
+                                "modifiedVulnerableSystemConfidentiality": "NOT_DEFINED",
+                                "modifiedVulnerableSystemIntegrity": "NOT_DEFINED",
+                                "modifiedVulnerableSystemAvailability": "NOT_DEFINED",
+                                "modifiedSubsequentSystemConfidentiality": "NOT_DEFINED",
+                                "modifiedSubsequentSystemIntegrity": "NOT_DEFINED",
+                                "modifiedSubsequentSystemAvailability": "NOT_DEFINED",
+                                "safety": "NOT_DEFINED",
+                                "automatable": "NOT_DEFINED",
+                                "recovery": "NOT_DEFINED",
+                                "valueDensity": "NOT_DEFINED",
+                                "vulnerabilityResponseEffort": "NOT_DEFINED",
+                                "providerUrgency": "NOT_DEFINED"
+                            }
+                        }
+                    ],
+                    "cvssMetricV31": [
+                        {
+                            "source": "cna@vuldb.com",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+                                "baseScore": 6.3,
+                                "baseSeverity": "MEDIUM",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "LOW",
+                                "privilegesRequired": "LOW",
+                                "userInteraction": "NONE",
+                                "scope": "UNCHANGED",
+                                "confidentialityImpact": "LOW",
+                                "integrityImpact": "LOW",
+                                "availabilityImpact": "LOW"
+                            },
+                            "exploitabilityScore": 2.8,
+                            "impactScore": 3.4
+                        }
+                    ],
+                    "cvssMetricV2": [
+                        {
+                            "source": "cna@vuldb.com",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "2.0",
+                                "vectorString": "AV:N/AC:L/Au:S/C:P/I:P/A:P",
+                                "baseScore": 6.5,
+                                "accessVector": "NETWORK",
+                                "accessComplexity": "LOW",
+                                "authentication": "SINGLE",
+                                "confidentialityImpact": "PARTIAL",
+                                "integrityImpact": "PARTIAL",
+                                "availabilityImpact": "PARTIAL"
+                            },
+                            "baseSeverity": "MEDIUM",
+                            "exploitabilityScore": 8,
+                            "impactScore": 6.4,
+                            "acInsufInfo": false,
+                            "obtainAllPrivilege": false,
+                            "obtainUserPrivilege": false,
+                            "obtainOtherPrivilege": false,
+                            "userInteractionRequired": false
+                        }
+                    ]
+                },
+                "weaknesses": [
+                    {
+                        "source": "cna@vuldb.com",
+                        "type": "Primary",
+                        "description": [
+                            {
+                                "lang": "en",
+                                "value": "CWE-74"
+                            },
+                            {
+                                "lang": "en",
+                                "value": "CWE-89"
+                            }
+                        ]
+                    }
+                ],
+                "references": [
+                    {
+                        "url": "https://code-projects.org/",
+                        "source": "cna@vuldb.com"
+                    },
+                    {
+                        "url": "https://github.com/UnrealdDei/cve/blob/main/sql11.md",
+                        "source": "cna@vuldb.com"
+                    },
+                    {
+                        "url": "https://vuldb.com/?ctiid.289917",
+                        "source": "cna@vuldb.com"
+                    },
+                    {
+                        "url": "https://vuldb.com/?id.289917",
+                        "source": "cna@vuldb.com"
+                    },
+                    {
+                        "url": "https://vuldb.com/?submit.473107",
+                        "source": "cna@vuldb.com"
+                    }
+                ]
+            }
+        },
+        {
+            "cve": {
+                "id": "CVE-2024-56829",
+                "sourceIdentifier": "cve@mitre.org",
+                "published": "2025-01-02T04:15:05.557",
+                "lastModified": "2025-01-06T21:15:15.300",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "Huang Yaoshi Pharmaceutical Management Software through 16.0 allows arbitrary file upload via a .asp filename in the fileName element of the UploadFile element in a SOAP request to /XSDService.asmx."
+                    },
+                    {
+                        "lang": "es",
+                        "value": "Huang Yaoshi Pharmaceutical Management Software hasta la versión 16.0 permite la carga de archivos arbitrarios mediante un nombre de archivo .asp en el elemento fileName del elemento UploadFile en una solicitud SOAP a /XSDService.asmx."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV31": [
+                        {
+                            "source": "cve@mitre.org",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+                                "baseScore": 10,
+                                "baseSeverity": "CRITICAL",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "LOW",
+                                "privilegesRequired": "NONE",
+                                "userInteraction": "NONE",
+                                "scope": "CHANGED",
+                                "confidentialityImpact": "HIGH",
+                                "integrityImpact": "HIGH",
+                                "availabilityImpact": "HIGH"
+                            },
+                            "exploitabilityScore": 3.9,
+                            "impactScore": 6
+                        }
+                    ]
+                },
+                "weaknesses": [
+                    {
+                        "source": "cve@mitre.org",
+                        "type": "Secondary",
+                        "description": [
+                            {
+                                "lang": "en",
+                                "value": "CWE-434"
+                            }
+                        ]
+                    }
+                ],
+                "references": [
+                    {
+                        "url": "https://github.com/Zerone0x00/CVE/blob/main/%E9%BB%84%E8%8D%AF%E5%B8%88%E8%8D%AF%E4%B8%9A%E7%AE%A1%E7%90%86%E8%BD%AF%E4%BB%B6/UploadFile%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.md",
+                        "source": "cve@mitre.org"
+                    },
+                    {
+                        "url": "https://github.com/Zerone0x00/CVE/blob/main/%E9%BB%84%E8%8D%AF%E5%B8%88%E8%8D%AF%E4%B8%9A%E7%AE%A1%E7%90%86%E8%BD%AF%E4%BB%B6/UploadFile%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0.md",
+                        "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+                    }
+                ]
+            }
+        },
+        {
+            "cve": {
+                "id": "CVE-2025-22214",
+                "sourceIdentifier": "cve@mitre.org",
+                "published": "2025-01-02T04:15:06.277",
+                "lastModified": "2025-01-02T04:15:06.277",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "Landray EIS 2001 through 2006 allows Message/fi_message_receiver.aspx?replyid= SQL injection."
+                    },
+                    {
+                        "lang": "es",
+                        "value": "Landray EIS 2001 a 2006 permite la inyección SQL Message/fi_message_receiver.aspx?replyid=."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV31": [
+                        {
+                            "source": "cve@mitre.org",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+                                "baseScore": 4.3,
+                                "baseSeverity": "MEDIUM",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "LOW",
+                                "privilegesRequired": "LOW",
+                                "userInteraction": "NONE",
+                                "scope": "UNCHANGED",
+                                "confidentialityImpact": "LOW",
+                                "integrityImpact": "NONE",
+                                "availabilityImpact": "NONE"
+                            },
+                            "exploitabilityScore": 2.8,
+                            "impactScore": 1.4
+                        }
+                    ]
+                },
+                "weaknesses": [
+                    {
+                        "source": "cve@mitre.org",
+                        "type": "Secondary",
+                        "description": [
+                            {
+                                "lang": "en",
+                                "value": "CWE-89"
+                            }
+                        ]
+                    }
+                ],
+                "references": [
+                    {
+                        "url": "https://github.com/Zerone0x00/CVE/blob/main/%E8%93%9D%E5%87%8CEISsql%E6%B3%A8%E5%85%A5/1.md",
+                        "source": "cve@mitre.org"
+                    }
+                ]
+            }
+        },
+        {
+            "cve": {
+                "id": "CVE-2002-20002",
+                "sourceIdentifier": "cve@mitre.org",
+                "published": "2025-01-02T05:15:06.430",
+                "lastModified": "2025-01-02T05:15:06.430",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "The Net::EasyTCP package before 0.15 for Perl always uses Perl's builtin rand(), which is not a strong random number generator, for cryptographic keys."
+                    },
+                    {
+                        "lang": "es",
+                        "value": "El paquete Net::EasyTCP anterior a la versión 0.15 para Perl siempre utiliza el rand() integrado de Perl, que no es un generador de números aleatorios potente, para las claves criptográficas."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV31": [
+                        {
+                            "source": "cve@mitre.org",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N",
+                                "baseScore": 5.4,
+                                "baseSeverity": "MEDIUM",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "HIGH",
+                                "privilegesRequired": "NONE",
+                                "userInteraction": "NONE",
+                                "scope": "CHANGED",
+                                "confidentialityImpact": "LOW",
+                                "integrityImpact": "LOW",
+                                "availabilityImpact": "NONE"
+                            },
+                            "exploitabilityScore": 2.2,
+                            "impactScore": 2.7
+                        }
+                    ]
+                },
+                "weaknesses": [
+                    {
+                        "source": "cve@mitre.org",
+                        "type": "Secondary",
+                        "description": [
+                            {
+                                "lang": "en",
+                                "value": "CWE-338"
+                            }
+                        ]
+                    }
+                ],
+                "references": [
+                    {
+                        "url": "https://github.com/briandfoy/cpan-security-advisory/issues/184",
+                        "source": "cve@mitre.org"
+                    },
+                    {
+                        "url": "https://metacpan.org/release/MNAGUIB/EasyTCP-0.15/view/EasyTCP.pm",
+                        "source": "cve@mitre.org"
+                    },
+                    {
+                        "url": "https://metacpan.org/release/MNAGUIB/EasyTCP-0.26/changes",
+                        "source": "cve@mitre.org"
+                    }
+                ]
+            }
+        },
+        {
+            "cve": {
+                "id": "CVE-2024-56830",
+                "sourceIdentifier": "cve@mitre.org",
+                "published": "2025-01-02T05:15:07.967",
+                "lastModified": "2025-01-02T05:15:07.967",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "The Net::EasyTCP package 0.15 through 0.26 for Perl uses Perl's builtin rand() if no strong randomization module is present."
+                    },
+                    {
+                        "lang": "es",
+                        "value": "El paquete Net::EasyTCP 0.15 a 0.26 para Perl utiliza el rand() integrado de Perl si no hay un módulo de aleatorización fuerte presente."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV31": [
+                        {
+                            "source": "cve@mitre.org",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:L/I:L/A:N",
+                                "baseScore": 5.4,
+                                "baseSeverity": "MEDIUM",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "HIGH",
+                                "privilegesRequired": "NONE",
+                                "userInteraction": "NONE",
+                                "scope": "CHANGED",
+                                "confidentialityImpact": "LOW",
+                                "integrityImpact": "LOW",
+                                "availabilityImpact": "NONE"
+                            },
+                            "exploitabilityScore": 2.2,
+                            "impactScore": 2.7
+                        }
+                    ]
+                },
+                "weaknesses": [
+                    {
+                        "source": "cve@mitre.org",
+                        "type": "Secondary",
+                        "description": [
+                            {
+                                "lang": "en",
+                                "value": "CWE-338"
+                            }
+                        ]
+                    }
+                ],
+                "references": [
+                    {
+                        "url": "https://github.com/briandfoy/cpan-security-advisory/issues/184",
+                        "source": "cve@mitre.org"
+                    },
+                    {
+                        "url": "https://metacpan.org/release/MNAGUIB/EasyTCP-0.26/changes",
+                        "source": "cve@mitre.org"
+                    }
+                ]
+            }
+        },
+        {
+            "cve": {
+                "id": "CVE-2024-11184",
+                "sourceIdentifier": "contact@wpscan.com",
+                "published": "2025-01-02T06:15:06.697",
+                "lastModified": "2025-01-06T21:15:13.693",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "The wp-enable-svg WordPress plugin through 0.7 does not sanitize SVG files when uploaded, allowing for authors and above to upload SVGs containing malicious scripts"
+                    },
+                    {
+                        "lang": "es",
+                        "value": "El complemento de WordPress wp-enable-svg hasta la versión 0.7 no desinfecta los archivos SVG cuando se cargan, lo que permite que los autores y superiores carguen SVG que contengan scripts maliciosos."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV31": [
+                        {
+                            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:N",
+                                "baseScore": 4.8,
+                                "baseSeverity": "MEDIUM",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "LOW",
+                                "privilegesRequired": "HIGH",
+                                "userInteraction": "REQUIRED",
+                                "scope": "CHANGED",
+                                "confidentialityImpact": "LOW",
+                                "integrityImpact": "LOW",
+                                "availabilityImpact": "NONE"
+                            },
+                            "exploitabilityScore": 1.7,
+                            "impactScore": 2.7
+                        }
+                    ]
+                },
+                "references": [
+                    {
+                        "url": "https://wpscan.com/vulnerability/fc982bcb-9974-481f-aef4-580ae9edc3c8/",
+                        "source": "contact@wpscan.com"
+                    },
+                    {
+                        "url": "https://wpscan.com/vulnerability/fc982bcb-9974-481f-aef4-580ae9edc3c8/",
+                        "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+                    }
+                ]
+            }
+        },
+        {
+            "cve": {
+                "id": "CVE-2024-11357",
+                "sourceIdentifier": "contact@wpscan.com",
+                "published": "2025-01-02T06:15:07.887",
+                "lastModified": "2025-01-06T21:15:13.853",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "The goodlayers-core WordPress plugin before 2.0.10 does not sanitise and escape some of its settings, which could allow users with the contributor role and above to perform Stored Cross-Site Scripting attacks."
+                    },
+                    {
+                        "lang": "es",
+                        "value": "El complemento de WordPress goodlayers-core anterior a la versión 2.0.10 no desinfecta ni escapa de algunas de sus configuraciones, lo que podría permitir que los usuarios con el rol de colaborador y superior realicen ataques de Cross-Site Scripting almacenado."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV31": [
+                        {
+                            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:R/S:C/C:L/I:L/A:L",
+                                "baseScore": 5.9,
+                                "baseSeverity": "MEDIUM",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "LOW",
+                                "privilegesRequired": "HIGH",
+                                "userInteraction": "REQUIRED",
+                                "scope": "CHANGED",
+                                "confidentialityImpact": "LOW",
+                                "integrityImpact": "LOW",
+                                "availabilityImpact": "LOW"
+                            },
+                            "exploitabilityScore": 1.7,
+                            "impactScore": 3.7
+                        }
+                    ]
+                },
+                "references": [
+                    {
+                        "url": "https://wpscan.com/vulnerability/7e8c6816-9b7a-43e8-9508-789c8051dd9b/",
+                        "source": "contact@wpscan.com"
+                    },
+                    {
+                        "url": "https://wpscan.com/vulnerability/7e8c6816-9b7a-43e8-9508-789c8051dd9b/",
+                        "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+                    }
+                ]
+            }
+        },
+        {
+            "cve": {
+                "id": "CVE-2024-12595",
+                "sourceIdentifier": "contact@wpscan.com",
+                "published": "2025-01-02T06:15:07.983",
+                "lastModified": "2025-01-06T21:15:14.003",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "The AHAthat Plugin WordPress plugin through 1.6 does not escape the $_SERVER['REQUEST_URI'] parameter before outputting it back in an attribute, which could lead to Reflected Cross-Site Scripting in old web browsers"
+                    },
+                    {
+                        "lang": "es",
+                        "value": "El complemento de WordPress AHAthat Plugin hasta la versión 1.6 no escapa del parámetro $_SERVER['REQUEST_URI'] antes de devolverlo en un atributo, lo que podría provocar Cross-Site Scripting reflejado en navegadores web antiguos."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV31": [
+                        {
+                            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                                "baseScore": 4.7,
+                                "baseSeverity": "MEDIUM",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "HIGH",
+                                "privilegesRequired": "NONE",
+                                "userInteraction": "REQUIRED",
+                                "scope": "CHANGED",
+                                "confidentialityImpact": "LOW",
+                                "integrityImpact": "LOW",
+                                "availabilityImpact": "NONE"
+                            },
+                            "exploitabilityScore": 1.6,
+                            "impactScore": 2.7
+                        }
+                    ]
+                },
+                "references": [
+                    {
+                        "url": "https://wpscan.com/vulnerability/7a506438-3106-477f-816d-b9b116ec8555/",
+                        "source": "contact@wpscan.com"
+                    },
+                    {
+                        "url": "https://wpscan.com/vulnerability/7a506438-3106-477f-816d-b9b116ec8555/",
+                        "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+                    }
+                ]
+            }
+        },
+        {
+            "cve": {
+                "id": "CVE-2024-12912",
+                "sourceIdentifier": "54bf65a7-a193-42d2-b1ba-8e150d3c35e1",
+                "published": "2025-01-02T09:15:17.470",
+                "lastModified": "2025-01-02T09:15:17.470",
+                "vulnStatus": "Awaiting Analysis",
+                "cveTags": [],
+                "descriptions": [
+                    {
+                        "lang": "en",
+                        "value": "An improper input insertion vulnerability in AiCloud on certain router models may lead to arbitrary command execution.\nRefer to the '01/02/2025 ASUS Router AiCloud vulnerability' section on the ASUS Security Advisory for more information."
+                    },
+                    {
+                        "lang": "es",
+                        "value": "Una vulnerabilidad de inserción de entrada incorrecta en AiCloud en ciertos modelos de routers puede provocar la ejecución de comandos arbitrarios. Consulte la sección 'Vulnerabilidad de ASUS Router AiCloud del 01/02/2025' en el Aviso de seguridad de ASUS para obtener más información."
+                    }
+                ],
+                "metrics": {
+                    "cvssMetricV31": [
+                        {
+                            "source": "54bf65a7-a193-42d2-b1ba-8e150d3c35e1",
+                            "type": "Secondary",
+                            "cvssData": {
+                                "version": "3.1",
+                                "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:H/A:H",
+                                "baseScore": 7.2,
+                                "baseSeverity": "HIGH",
+                                "attackVector": "NETWORK",
+                                "attackComplexity": "LOW",
+                                "privilegesRequired": "HIGH",
+                                "userInteraction": "NONE",
+                                "scope": "UNCHANGED",
+                                "confidentialityImpact": "HIGH",
+                                "integrityImpact": "HIGH",
+                                "availabilityImpact": "HIGH"
+                            },
+                            "exploitabilityScore": 1.2,
+                            "impactScore": 5.9
+                        }
+                    ]
+                },
+                "weaknesses": [
+                    {
+                        "source": "54bf65a7-a193-42d2-b1ba-8e150d3c35e1",
+                        "type": "Secondary",
+                        "description": [
+                            {
+                                "lang": "en",
+                                "value": "CWE-20"
+                            },
+                            {
+                                "lang": "en",
+                                "value": "CWE-77"
+                            }
+                        ]
+                    }
+                ],
+                "references": [
+                    {
+                        "url": "https://www.asus.com/content/asus-product-security-advisory/",
+                        "source": "54bf65a7-a193-42d2-b1ba-8e150d3c35e1"
+                    }
+                ]
+            }
+        }
+    ]
+}
