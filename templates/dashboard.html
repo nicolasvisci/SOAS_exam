@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Benvenuto nella tua Dashboard</h1>
+
+    {% if user %}
+        <p>Ciao, {{ user }}!</p>
+    {% endif %}
+
+    <a href="/logout">Logout</a>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script type="text/javascript">
+                // Mostra i messaggi flash in un alert() di JavaScript
+                alert("{{ messages[0] }}");  // Mostra solo il primo messaggio flash
+            </script>
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

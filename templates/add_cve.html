@@ -1,12 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add CVE</title>
+    <title>Aggiungi nuova CVE</title>
+
+    <style>
+        .success { color: green; }
+        .error { color: red; }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .btn-container {
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+        }
+        hr {
+            border: 1px solid #ddd;
+        }
+
+        /* Stile per i campi di input e textarea */
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* Stile per il focus */
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Stile per il textarea */
+        textarea {
+            resize: vertical;
+        }
+
+        /* Stile per le label */
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    <h1>Add a New CVE</h1>
+    <h1>Aggiungi una nuova CVE</h1>
     <form action="/add_cve" method="post">
         <label for="cve_id">CVE ID:</label>
         <input type="text" id="cve_id" name="cve_id" required><br><br>
@@ -17,7 +88,21 @@
         <label for="description">Description:</label>
         <textarea id="description" name="description" rows="4" required></textarea><br><br>
 
-        <button type="submit">Add CVE</button>
+        <div class="btn-container">
+            <button type="submit" class="btn">Aggiungi CVE</button>
+            <a href="/" class="btn">Home</a>
+        </div>
     </form>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script type="text/javascript">
+                // Mostra i messaggi flash in un alert() di JavaScript
+                alert("{{ messages[0] }}");  // Mostra solo il primo messaggio flash
+            </script>
+        {% endif %}
+    {% endwith %}
+
+
 </body>
 </html>
