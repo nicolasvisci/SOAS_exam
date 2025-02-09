@@ -86,9 +86,10 @@ def from_file():
     # Passa i dati al template
     return render_template('index.html', cve_data=cve_data)
 
+
 @app.route('/add_cve', methods=['GET', 'POST'])
 def add_cve():
-    #implementare il controllo con @jwt_required
+
     token = request.cookies.get('access_token_cookie')
 
     if not token:
@@ -100,6 +101,9 @@ def add_cve():
     except Exception as e:
         flash("Sessione scaduta. Effettua nuovamente il login.", "warning")
         return redirect(url_for('login'))
+
+    verify_jwt_in_request()  # Verifica il token
+    user = get_jwt_identity()  # Ottieni l'email dal token
 
     if request.method == 'POST':
         # Estrai i dati dal form
@@ -114,7 +118,7 @@ def add_cve():
         # Redirigi alla home page o a un'altra pagina
         return redirect(url_for('from_file'))
 
-    return render_template('add_cve.html')
+    return render_template('add_cve.html', user=user)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -209,7 +213,8 @@ def dashboard():
 
         return render_template('dashboard.html', user=user)
     except Exception as e:
-        flash("Errore nella dashboard: Missing cookie access_token_cookie")
+
+        flash("Errore access_token_cookie. Effettua nuovamente il login.")
         return redirect(url_for('login'))
 
 
