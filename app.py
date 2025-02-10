@@ -1,5 +1,6 @@
 from datetime import timedelta, datetime
 import time
+import re
 import os
 import json
 import random
@@ -162,6 +163,12 @@ def register():
         if not email or not password:
             return jsonify({'message': 'Email e password obbligatorie'}), 400
 
+        # Verifica che la password rispetti i requisiti
+        password_pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$'
+
+        if not re.match(password_pattern, password):
+            flash("Controlla che la password inserita rispetti i requisiti previsti")
+            return redirect(url_for('register'))
         try:
             # Connessione al database usando il contesto 'with'
             with db.cursor(dictionary=True) as cursor:
