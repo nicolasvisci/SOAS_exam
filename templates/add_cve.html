@@ -95,17 +95,15 @@
 
     <h1>Aggiungi una nuova CVE</h1>
     <form action="/add_cve" method="post">
-        <label for="cve_id">CVE ID:</label>
-        <input type="text" id="cve_id" name="cve_id" required><br><br>
 
-        <label for="source_identifier">Email da predendere automaticamente</label>
-
-        <label for="description">Description:</label>
+        <label for="cve_id">CVE ID (Generato automaticamente)</label>
+        <label for="description">Descrizione della CVE:</label>
         <textarea id="description" name="description" rows="4" required></textarea><br><br>
 
         <div class="btn-container">
             <button type="submit" class="btn">Aggiungi CVE</button>
             <a href="/" class="btn">Home</a>
+            <a href="/logout" class="btn">Logout</a>
         </div>
     </form>
 

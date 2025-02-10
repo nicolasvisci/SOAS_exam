@@ -1,7 +1,8 @@
-from datetime import timedelta
-import datetime
+from datetime import timedelta, datetime
+import time
 import os
 import json
+import random
 import requests
 from flask import Flask, request, jsonify, make_response, render_template, redirect, url_for, get_flashed_messages, session
 from flask_bcrypt import Bcrypt
@@ -86,39 +87,46 @@ def from_file():
     # Passa i dati al template
     return render_template('index.html', cve_data=cve_data)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        # Verifica se c'è un token nel cookie
+        token = request.cookies.get('access_token_cookie')
+        if token:
+            try:
+                # Decodifica il token per verificarne la validità
+                decoded_token = decode_token(token)
+                if decoded_token:
+                    # Se il token è valido, reindirizza alla dashboard
+                    return redirect(url_for('dashboard'))
+            except Exception:
+                flash("Sessione scaduta. Effettua nuovamente il login.")
 
-@app.route('/add_cve', methods=['GET', 'POST'])
-def add_cve():
+    elif request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
 
-    token = request.cookies.get('access_token_cookie')
+        try:
+            # Connessione al database usando il contesto 'with'
+            with db.cursor(dictionary=True) as cursor:
+                cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
+                user = cursor.fetchone()
 
-    if not token:
-        flash("Devi effettuare il login per accedere a questa pagina.", "danger")
-        return redirect(url_for('login'))
+            if user and bcrypt.check_password_hash(user['password_hash'], password):
+                access_token = create_access_token(identity=email, expires_delta=timedelta(days=1))
+                flash("Accesso riuscito")
+                response = make_response(redirect(url_for('dashboard')))  # ⬅️ Reindirizzamento
+                response.set_cookie('access_token_cookie', access_token, httponly=True)
+                return response
+            else:
+                flash("Credenziali non valide")  # 🔥 Usa flash() invece della sessione
+                return redirect(url_for('login'))  # 🔄 Redirect senza messaggio nell'URL
+        except mysql.connector.Error as err:
+            flash(f"Errore nel database: {err}", "danger")
+            return redirect(url_for('login'))  # Ritorna alla pagina di login se c'è un errore con il database
 
-    try:
-        decode_token(token)  # Decodifica e verifica il token JWT
-    except Exception as e:
-        flash("Sessione scaduta. Effettua nuovamente il login.", "warning")
-        return redirect(url_for('login'))
+    return render_template('login.html')
 
-    verify_jwt_in_request()  # Verifica il token
-    user = get_jwt_identity()  # Ottieni l'email dal token
-
-    if request.method == 'POST':
-        # Estrai i dati dal form
-        cve_id = request.form.get('cve_id')
-        source_identifier = request.form.get('source_identifier')
-        description = request.form.get('description')
-        published = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # Timestamp corrente
-
-        # Simula il salvataggio (qui puoi aggiungere codice per salvare nel database in seguito)
-        print(f"CVE ID: {cve_id}, Source Identifier: {source_identifier}, Description: {description}, Published: {published}")
-
-        # Redirigi alla home page o a un'altra pagina
-        return redirect(url_for('from_file'))
-
-    return render_template('add_cve.html', user=user)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -138,64 +146,28 @@ def register():
         if not email or not password:
             return jsonify({'message': 'Email e password obbligatorie'}), 400
 
-        cursor = db.cursor(dictionary=True)
+        try:
+            # Connessione al database usando il contesto 'with'
+            with db.cursor(dictionary=True) as cursor:
+                # Controllo se l'email esiste già (uso query parametrizzate per prevenire SQL Injection)
+                cursor.execute("SELECT email FROM users WHERE email = %s", (email,))
+                if cursor.fetchone():
+                    flash("Email già registrata")
+                    return redirect(url_for('register'))
 
-        # Controllo se l'email esiste già (uso query parametrizzate per prevenire SQL Injection)
-        cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
-        if cursor.fetchone():
-            cursor.close()
-            return jsonify({'message': 'Email già registrata'}), 409
+                # Hash della password
+                hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-        # Hash della password
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+                # Inserimento del nuovo utente
+                cursor.execute("INSERT INTO users (email, password_hash) VALUES (%s, %s)", (email, hashed_password))
+                db.commit()
 
-        # Inserimento del nuovo utente
-        cursor.execute("INSERT INTO users (email, password_hash) VALUES (%s, %s)", (email, hashed_password))
-        db.commit()
-        cursor.close()
+            flash("Registrazione completata")
+            return redirect(url_for('login'))
 
-        flash("Registrazione completata")
-        return redirect(url_for('login'))
-    
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'GET':
-
-        # Verifica se c'è un token nel cookie
-        token = request.cookies.get('access_token_cookie')
-
-        if token:
-            try:
-                # Decodifica il token per verificarne la validità
-                decoded_token = decode_token(token)
-                if decoded_token:
-                    # Se il token è valido, reindirizza alla dashboard
-                    return redirect(url_for('dashboard'))
-            except Exception as e:
-                flash("Sessione scaduta. Effettua nuovamente il login.")
-                # Se il token non è valido, non fare nulla e lascia l'utente sulla pagina di login
-
-    elif request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        cursor = db.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
-        user = cursor.fetchone()
-        cursor.close()
-
-        if user and bcrypt.check_password_hash(user['password_hash'], password):
-            access_token = create_access_token(identity=email, expires_delta=timedelta(days=1))
-            flash("Accesso riuscito")
-            response = make_response(redirect(url_for('dashboard')))  # ⬅️ Reindirizzamento
-            response.set_cookie('access_token_cookie', access_token, httponly=True)
-            return response
-        else:
-            flash("Credenziali non valide")  # 🔥 Usa flash() invece della sessione
-            return redirect(url_for('login'))  # 🔄 Redirect senza messaggio nell'URL
-
-    return render_template('login.html')
+        except mysql.connector.Error as err:
+            # Gestione degli errori del database
+            return jsonify({'message': f"Errore nel database: {err}"}), 500
 
 @app.route('/logout')
 def logout():
@@ -205,16 +177,65 @@ def logout():
     return response
 
 
+@app.route('/add_cve', methods=['GET', 'POST'])
+def add_cve():
+
+    token = request.cookies.get('access_token_cookie')
+
+    if not token:
+        flash("Devi effettuare il login per accedere a questa pagina.", "danger")
+        return redirect(url_for('login'))
+
+    try:
+        verify_jwt_in_request()  # Verifica il token
+    except Exception:
+        flash("Sessione scaduta. Effettua nuovamente il login.", "warning")
+        return redirect(url_for('login'))
+
+    user_email = get_jwt_identity()  # Ottieni l'email dal token
+
+    if request.method == 'POST':
+
+        random_number = f"{random.randint(0, 99999):05d}"  # Genera un numero di 5 cifre
+        cve_id = f"CVE-2025-{random_number}"  # Formato finale
+
+        description = request.form.get('description')
+        published = datetime.now().isoformat()  # Timestamp corrente
+
+        try:
+            # Connessione al database
+            with db.cursor(dictionary=True) as cursor:
+                cursor.execute("INSERT INTO cvelist (cveid, published, sourceIdentifier, description) VALUES (%s, %s, %s, %s)",(cve_id, published, user_email, description))
+                db.commit()  # Salva le modifiche
+            flash("CVE aggiunta con successo!", "success")
+            return redirect(url_for('dashboard'))
+
+        except mysql.connector.Error as err:
+            flash("Si è verificato un errore. Riprova più tardi.", "danger")
+
+    return render_template('add_cve.html', user=user_email)
+
 @app.route('/dashboard')
 def dashboard():
     try:
         verify_jwt_in_request()  # Verifica il token
         user = get_jwt_identity()  # Ottieni l'email dal token
 
-        return render_template('dashboard.html', user=user)
-    except Exception as e:
+        # Connessione al database e recupero delle CVE
+        try:
+            with db.cursor(dictionary=True) as cursor:
+                # Query parametrizzata per evitare SQL injection
+                cursor.execute("SELECT * FROM cvelist WHERE sourceIdentifier = %s", (user,))
+                cve_data = cursor.fetchall()  # Restituisce tutte le righe come lista di dizionari
+        except mysql.connector.Error as err:
+            flash(f"Errore nel database: {err}", "danger")
+            return redirect(url_for('dashboard'))
 
-        flash("Errore access_token_cookie. Effettua nuovamente il login.")
+        # Passa i dati al template
+        return render_template('dashboard.html', user=user, cve_data=cve_data)
+
+    except Exception:
+        flash("Devi effettuare il login per accedere a questa pagina.", "danger")
         return redirect(url_for('login'))
 
 

@@ -60,7 +60,7 @@
         {% endif %}
     </div>
 
-    <h1>Benvenuto nella tua Dashboard</h1>
+    <h1>Dashboard</h1>
 
     {% if user %}
         <p>Ciao, {{ user }}!</p>
@@ -68,6 +68,8 @@
 
     <div class="btn-container">
             <a href="/logout" class="btn">Logout</a>
+            <a href="/add_cve" class="btn">Aggiungi CVE</a>
+            <a href="/" class="btn">Home</a>
     </div>
 
     {% with messages = get_flashed_messages() %}
@@ -78,5 +80,26 @@
             </script>
         {% endif %}
     {% endwith %}
+
+
+    <h2>Lista delle tue CVE</h2>
+
+    {% if cve_data %}
+        <ul>
+            {% for cve in cve_data %}
+                <li>
+                    <strong>CVE ID:</strong> {{ cve['cveid'] }} <br>
+                    <strong>Published:</strong> {{ cve['published'] }} <br>
+                    <strong>Source Identifier:</strong> {{ cve['sourceIdentifier'] }} <br>
+                    <strong>Description:</strong> {{ cve['description'] }}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nessun dato disponibile.</p>
+    {% endif %}
+
+
 </body>
 </html>
