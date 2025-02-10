@@ -52,7 +52,23 @@ def from_api():
             })
     else:
         cve_data = []  # Lista vuota in caso di errore
-    print("Data loaded from API")
+
+    # Connessione al database per ottenere dati aggiuntivi da cvelist
+    try:
+        with db.cursor(dictionary=True) as cursor:
+            cursor.execute("SELECT cveid, published, sourceIdentifier, description FROM cvelist")
+            db_cve_data = cursor.fetchall()  # Ottieni tutte le righe dalla tabella cvelist
+            # Aggiungi i dati del database alla lista cve_data
+            for cve in db_cve_data:
+                cve_data.append({
+                    'id': cve['cveid'],
+                    'published': cve['published'],
+                    'sourceIdentifier': cve['sourceIdentifier'],
+                    'description': cve['description']
+                })
+    except mysql.connector.Error as err:
+        print(f"Errore nel recupero dei dati dal database: {err}")
+
     # Passa i dati al template
     return render_template('index.html', cve_data=cve_data)
 
@@ -113,7 +129,7 @@ def login():
                 user = cursor.fetchone()
 
             if user and bcrypt.check_password_hash(user['password_hash'], password):
-                access_token = create_access_token(identity=email, expires_delta=timedelta(days=1))
+                access_token = create_access_token(identity=email, expires_delta=timedelta(minutes=20))
                 flash("Accesso riuscito")
                 response = make_response(redirect(url_for('dashboard')))  # ⬅️ Reindirizzamento
                 response.set_cookie('access_token_cookie', access_token, httponly=True)

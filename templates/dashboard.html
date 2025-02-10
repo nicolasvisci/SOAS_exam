@@ -62,14 +62,10 @@
 
     <h1>Dashboard</h1>
 
-    {% if user %}
-        <p>Ciao, {{ user }}!</p>
-    {% endif %}
-
     <div class="btn-container">
             <a href="/logout" class="btn">Logout</a>
             <a href="/add_cve" class="btn">Aggiungi CVE</a>
-            <a href="/" class="btn">Home</a>
+            <a href="/fromapi" class="btn">Home</a>
     </div>
 
     {% with messages = get_flashed_messages() %}
