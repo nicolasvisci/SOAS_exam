@@ -1,5 +1,6 @@
 from datetime import timedelta, datetime
 import time
+import bleach
 import re
 import os
 import json
@@ -223,6 +224,9 @@ def add_cve():
         cve_id = f"CVE-2025-{random_number}"  # Formato finale
 
         description = request.form.get('description')
+        # Sanificazione dell'input usando bleach
+        description = bleach.clean(description)  # Rimuove HTML potenzialmente pericoloso
+
         published = datetime.now().isoformat()  # Timestamp corrente
 
         try:
