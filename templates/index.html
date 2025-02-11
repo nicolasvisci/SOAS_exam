@@ -8,32 +8,73 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .btn-container {
+
+        h1 {
+            color: #333;
             margin-bottom: 20px;
         }
+
+        .btn-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
         .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            margin: 5px;
+            padding: 12px 20px;
             background-color: #007BFF;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
+
         .btn:hover {
             background-color: #0056b3;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
         }
-        li {
-            margin-bottom: 20px;
-        }
-        hr {
+
+        th, td {
+            padding: 12px;
             border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
         }
     </style>
 </head>
