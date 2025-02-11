@@ -62,7 +62,7 @@
         <div class="btn-container">
             <button type="submit" class="btn">Registrami</button>
             <a href="/login" class="btn">Login</a>
-            <a href="/fromapi" class="btn">Home</a>
+            <a href="/" class="btn">Home</a>
         </div>
 
     </form>
@@ -70,8 +70,7 @@
      {% with messages = get_flashed_messages() %}
         {% if messages %}
             <script type="text/javascript">
-                // Mostra i messaggi flash in un alert() di JavaScript
-                alert("{{ messages[0] }}");  // Mostra solo il primo messaggio flash
+                alert("{{ messages[0] }}");
             </script>
         {% endif %}
     {% endwith %}

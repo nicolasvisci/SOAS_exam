@@ -6,27 +6,29 @@ import os
 import json
 import random
 import requests
-from flask import Flask, request, jsonify, make_response, render_template, redirect, url_for, get_flashed_messages, session
+from flask import Flask, request, jsonify, make_response, render_template, redirect, url_for, get_flashed_messages, session, flash
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token, verify_jwt_in_request, get_jwt_identity, decode_token, \
     jwt_required
-from flask import flash
 from utils import *
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback_secret_key')  # Usa un valore di fallback se non trovato
-app.config['JWT_TOKEN_LOCATION'] = [os.getenv('JWT_TOKEN_LOCATION', 'cookies')]
+# Configurazione delle impostazioni per JWT (JSON Web Token) nei cookie
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback_secret_key')
+app.config['JWT_TOKEN_LOCATION'] = os.getenv('JWT_TOKEN_LOCATION', 'cookies')
 app.config['JWT_ACCESS_COOKIE_NAME'] = os.getenv('JWT_ACCESS_COOKIE_NAME', 'access_token_cookie')
-app.config['JWT_COOKIE_SECURE'] = os.getenv('JWT_COOKIE_SECURE', 'False').lower() == 'true'  # Converti stringa in bool
+app.config['JWT_COOKIE_SECURE'] = os.getenv('JWT_COOKIE_SECURE', 'False').lower() == 'true'
+app.config['JWT_COOKIE_HTTPONLY'] = os.getenv('JWT_COOKIE_HTTPONLY', 'False').lower() == 'true'
 app.config['JWT_COOKIE_CSRF_PROTECT'] = os.getenv('JWT_COOKIE_CSRF_PROTECT', 'False').lower() == 'true'
+app.config['JWT_COOKIE_SAMESITE'] = "Strict"
 
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 
-@app.route('/fromapi')
+@app.route('/')
 def from_api():
-    # URL per ottenere i dati con il filtro e i risultati limitati a 10
+    # URL per ottenere i dati relativi alle prime 50 CVE pubblicate nel 2025
     url = 'https://services.nvd.nist.gov/rest/json/cves/2.0/?pubStartDate=2025-01-01T00:00:00.000-05:00&pubEndDate=2025-01-08T23:59:59.999-05:00&resultsPerPage=50'
 
     # Effettua la richiesta API
@@ -75,7 +77,7 @@ def from_api():
     return render_template('index.html', cve_data=cve_data)
 
 
-@app.route('/')
+@app.route('/fromfile')
 def from_file():
     # Percorso del file JSON nella cartella static
     json_path = os.path.join(app.static_folder, 'cve.json')
@@ -125,20 +127,26 @@ def login():
         password = request.form.get('password')
 
         try:
-            # Connessione al database usando il contesto 'with'
+            # Connessione al database
             with db.cursor(dictionary=True) as cursor:
                 cursor.execute("SELECT * FROM users WHERE email = %s", (email,))
                 user = cursor.fetchone()
 
             if user and bcrypt.check_password_hash(user['password_hash'], password):
-                access_token = create_access_token(identity=email, expires_delta=timedelta(minutes=20))
+
+                # Genera un timestamp al momento della creazione del token
+                timestamp = datetime.utcnow().isoformat()
+                # Crea l'identity come combinazione di email + timestamp
+                identity = f"{email}#{timestamp}"
+
+                access_token = create_access_token(identity=identity, expires_delta=timedelta(minutes=20))
                 flash("Accesso riuscito")
                 response = make_response(redirect(url_for('dashboard')))  # ⬅️ Reindirizzamento
-                response.set_cookie('access_token_cookie', access_token, httponly=True)
+                response.set_cookie('access_token_cookie', access_token, httponly=True, secure=True, samesite="Strict", max_age=1200)
                 return response
             else:
-                flash("Credenziali non valide")  # 🔥 Usa flash() invece della sessione
-                return redirect(url_for('login'))  # 🔄 Redirect senza messaggio nell'URL
+                flash("Credenziali non valide")
+                return redirect(url_for('login'))
         except mysql.connector.Error as err:
             flash(f"Errore nel database: {err}", "danger")
             return redirect(url_for('login'))  # Ritorna alla pagina di login se c'è un errore con il database
@@ -171,7 +179,7 @@ def register():
             flash("Controlla che la password inserita rispetti i requisiti previsti")
             return redirect(url_for('register'))
         try:
-            # Connessione al database usando il contesto 'with'
+            # Connessione al database
             with db.cursor(dictionary=True) as cursor:
                 # Controllo se l'email esiste già (uso query parametrizzate per prevenire SQL Injection)
                 cursor.execute("SELECT email FROM users WHERE email = %s", (email,))
@@ -211,17 +219,18 @@ def add_cve():
         return redirect(url_for('login'))
 
     try:
-        verify_jwt_in_request()  # Verifica il token
+        verify_jwt_in_request()  # Verifico il token
     except Exception:
         flash("Sessione scaduta. Effettua nuovamente il login.", "warning")
         return redirect(url_for('login'))
 
-    user_email = get_jwt_identity()  # Ottieni l'email dal token
+    identity_token = get_jwt_identity()  # Ottiengo il token
+    user_email = identity_token.split("#")[0]
 
     if request.method == 'POST':
 
-        random_number = f"{random.randint(0, 99999):05d}"  # Genera un numero di 5 cifre
-        cve_id = f"CVE-2025-{random_number}"  # Formato finale
+        random_number = f"{random.randint(0, 99999):05d}"
+        cve_id = f"CVE-2025-{random_number}"
 
         description = request.form.get('description')
         # Sanificazione dell'input usando bleach
@@ -233,7 +242,7 @@ def add_cve():
             # Connessione al database
             with db.cursor(dictionary=True) as cursor:
                 cursor.execute("INSERT INTO cvelist (cveid, published, sourceIdentifier, description) VALUES (%s, %s, %s, %s)",(cve_id, published, user_email, description))
-                db.commit()  # Salva le modifiche
+                db.commit()
             flash("CVE aggiunta con successo!", "success")
             return redirect(url_for('dashboard'))
 
@@ -246,14 +255,15 @@ def add_cve():
 def dashboard():
     try:
         verify_jwt_in_request()  # Verifica il token
-        user = get_jwt_identity()  # Ottieni l'email dal token
+        identity_token = get_jwt_identity()  # Ottiengo il token
+        user = identity_token.split("#")[0]
 
         # Connessione al database e recupero delle CVE
         try:
             with db.cursor(dictionary=True) as cursor:
                 # Query parametrizzata per evitare SQL injection
                 cursor.execute("SELECT * FROM cvelist WHERE sourceIdentifier = %s", (user,))
-                cve_data = cursor.fetchall()  # Restituisce tutte le righe come lista di dizionari
+                cve_data = cursor.fetchall()
         except mysql.connector.Error as err:
             flash(f"Errore nel database: {err}", "danger")
             return redirect(url_for('dashboard'))
