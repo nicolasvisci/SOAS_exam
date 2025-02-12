@@ -7,6 +7,8 @@
 Il progetto ha previsto la realizzazione di una Web app che permette la visualizzazione tramite l'API del National Institute of Standards and Technology (NIST), delle prime 50 CVE pubblicate nel 2025. Tramite autenticazione con Token JWT, è permesso aggiungere nuove CVE.
 La sicurezza del servizio implementato è garantita dall'utilizzo di Protocollo HTTPS, sul quale i dati viaggiano cifrati, e l'utilizzo di Token JWT per garantire l'autenticità degli utenti.
 
+---
+
 ## Principali Tecnologie utilizzate
 
 - MySQL Database
@@ -15,9 +17,13 @@ La sicurezza del servizio implementato è garantita dall'utilizzo di Protocollo 
 - Flask
 - Ngrok
 
+---
+
 ## Architettura del servizio
 
 L'architettura REST è uno stile architetturale per progettare servizi web. Si basa su principi e vincoli che garantiscono semplicità, scalabilità e interoperabilità tra sistemi.
+
+---
 
 ## Passi per l'installazione
 
@@ -36,6 +42,8 @@ Installato correttamente, eseguiamo il comando `ngrok http 5000`
 
 4. **Avviare Web App**
 Eseguiamo la Web App all'interno dell'ambiente di sviluppo.
+
+---
 
 ## Configurazione ambiente - Ngrok
 
@@ -70,6 +78,8 @@ Dopo la registrazione su ngrok, viene fornito un Authtoken (un codice alfanumeri
 ![ngrok](static/images/ngrok.png)
    
 <b>ATTENZIONE:</b> Ogni volta che ngrok viene interrotto, bisogna rieseguire il comando del <b>punto 4</b>
+
+---
 
 ## Configurazione MySQL Database
 
@@ -115,6 +125,8 @@ CREATE TABLE users (
 
 Infine, creare un file `.env` nella cartella principale del progetto che contenga le informazioni relative al proprio Database.
 
+---
+
 ## Flask
 
 Flask è un framework web leggero, più precisamente un microframework, open-source per il linguaggio di programmazione Python. È progettato per facilitare la creazione di applicazioni web, offrendo gli strumenti di base necessari per gestire richieste HTTP, routing, gestione delle sessioni e rendering di template.
@@ -130,7 +142,13 @@ Vantaggi nell'utilizzo di Flask
 
 - <b>Scalabilità:</b> Sebbene sia un framework leggero, Flask è abbastanza scalabile per supportare applicazioni più complesse. Può essere utilizzato per progetti di piccole dimensioni così come per applicazioni più grandi, con una gestione del codice che resta relativamente semplice.
 
-## Diagramma delle Architetture - Da completare
+---
+
+## Diagramma delle Architetture
+
+![diagramma_architetture](static/images/diagramma_architetture.png)
+
+---
 
 ## Funzionalità sviluppate e Controlli di Sicurezza
 
@@ -178,6 +196,8 @@ Questo impedisce di iniettare codice SQL per accedere o manipolare il database.
 **Mitigazione di XSS (Cross-Site Scripting)** 🛡️
 
 Per evitare che l'utente possa inviare tramite il form per l'aggiunta di CVE, degli input malevoli (come script per l'XSS), prima di salvare il contenuto nel database e visualizzarlo nella dashboard, viene sanificato andando a rimuovere tutti i possibili caratteri potenzialmente pericolosi.
+
+---
 
 ## Fonti e Riferimenti
 
