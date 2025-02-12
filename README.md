@@ -67,7 +67,7 @@ Dopo la registrazione su ngrok, viene fornito un Authtoken (un codice alfanumeri
 
 5. Una volta avviato il servizio si otterrà una schermata tipo:
    
-![ngrok](https://github.com/user-attachments/assets/983735e3-da4f-46e0-b1ac-f2dd26a12d3c)
+![ngrok](static/images/ngrok.png)
    
 <b>ATTENZIONE:</b> Ogni volta che ngrok viene interrotto, bisogna rieseguire il comando del <b>punto 4</b>
 
@@ -132,7 +132,38 @@ Vantaggi nell'utilizzo di Flask
 
 ## Diagramma delle Architetture - Da completare
 
-## Controlli di Sicurezza
+## Funzionalità sviluppate e Controlli di Sicurezza
+
+### REGISTRAZIONE e LOGIN
+
+Per aggiungere una nuova CVE a quelle già presenti, bisogna aver effettuato l'accesso. Se non si è registrati si può farlo inserendo una email (non utilizzata da altri) e una password che rispetti gli standard comuni (minimo 8 caratteri, almeno una lettera minuscola, una lettera maiuscola, un numero e un carattere speciale). Al termine della registrazione, se avvenuta con successo, si potrà effettuare il login con le nuove credenziali.
+
+![register](static/images/register.png)
+
+Se si è già registrati, si può accedere, tramite login, alla propria Dashboard per visualizzare, se presenti, le CVE caricate con il proprio indirizzo mail.
+Verificato che l'utente esiste, ed effettuato con successo il login, viene creato un JWT (JSON Web Token) con l'email dell'utente e il TIMESTAMP del momento in cui avviene l'accesso. Il Token viene salvato in maniera sicura, garantendo l'integrità del Token.  
+
+![login](static/images/login.png)
+
+### AGGIUNTA CVE
+
+Verificata la presenza del Token e previa validazione dello stesso, l'utente autenticato correttamente può inserire in un apposito Form il testo che descrive la CVE che vuole aggiungere.
+Il testo inserito, prima del salvataggio sul Database, viene sanificato attraverso la libreria 'Bleach', in modo da evitare l'esecuzione di codice dannoso.
+
+![nuova_cve](static/images/nuova_cve.png)
+
+### DASHBOARD
+
+Effettuato il login con successo, si potranno visualizzare le proprie CVE aggiunte con il proprio indirizzo mail, scegliendo eventualmente di aggiungerne altre.
+
+![dashboard](static/images/dashboard.png)
+
+### LOGOUT
+
+La funzione di 'logout' gestisce la disconnessione dell'utente rimuovendo il Token JWT salvato nei Cookie.
+Il Cookie dell'utente autenticato, verrà invalidato, e l'utente riceverà un messaggio di conferma. Terminata con successo la fase di logout, l'utente dovrà rieffettuare l'accesso tramite la pagina di login.
+
+---
 
 **Sicurezza dei Cookie** 🍪
 
